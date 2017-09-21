@@ -14,6 +14,8 @@
 		334A0F101F7390420091AAE7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 334A0F0E1F7390420091AAE7 /* LaunchScreen.storyboard */; };
 		334A0F1A1F73920F0091AAE7 /* VGPullToRefreshLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334A0F191F73920F0091AAE7 /* VGPullToRefreshLoadingIndicator.swift */; };
 		33FC4AA61F73B5AA0009CC9F /* VGRefreshHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FC4AA51F73B5AA0009CC9F /* VGRefreshHeaderView.swift */; };
+		80AE84CD1F7408B20091D935 /* VGPullToRefreshCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE84CC1F7408B20091D935 /* VGPullToRefreshCommon.swift */; };
+		80AE84CF1F740B5C0091D935 /* VGPullToRefreshExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AE84CE1F740B5C0091D935 /* VGPullToRefreshExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		334A0F111F7390420091AAE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		334A0F191F73920F0091AAE7 /* VGPullToRefreshLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VGPullToRefreshLoadingIndicator.swift; sourceTree = "<group>"; };
 		33FC4AA51F73B5AA0009CC9F /* VGRefreshHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VGRefreshHeaderView.swift; sourceTree = "<group>"; };
+		80AE84CC1F7408B20091D935 /* VGPullToRefreshCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VGPullToRefreshCommon.swift; sourceTree = "<group>"; };
+		80AE84CE1F740B5C0091D935 /* VGPullToRefreshExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VGPullToRefreshExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 			children = (
 				334A0F191F73920F0091AAE7 /* VGPullToRefreshLoadingIndicator.swift */,
 				33FC4AA51F73B5AA0009CC9F /* VGRefreshHeaderView.swift */,
+				80AE84CC1F7408B20091D935 /* VGPullToRefreshCommon.swift */,
+				80AE84CE1F740B5C0091D935 /* VGPullToRefreshExtensions.swift */,
 			);
 			path = VGPullToRefresh;
 			sourceTree = "<group>";
@@ -150,8 +156,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80AE84CF1F740B5C0091D935 /* VGPullToRefreshExtensions.swift in Sources */,
 				334A0F1A1F73920F0091AAE7 /* VGPullToRefreshLoadingIndicator.swift in Sources */,
 				334A0F081F7390420091AAE7 /* ViewController.swift in Sources */,
+				80AE84CD1F7408B20091D935 /* VGPullToRefreshCommon.swift in Sources */,
 				33FC4AA61F73B5AA0009CC9F /* VGRefreshHeaderView.swift in Sources */,
 				334A0F061F7390420091AAE7 /* AppDelegate.swift in Sources */,
 			);
