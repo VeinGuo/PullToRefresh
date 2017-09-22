@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3304DCF61F74B5BD002EE397 /* VGRefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304DCF51F74B5BD002EE397 /* VGRefreshFooterView.swift */; };
 		334A0F061F7390420091AAE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334A0F051F7390420091AAE7 /* AppDelegate.swift */; };
 		334A0F081F7390420091AAE7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334A0F071F7390420091AAE7 /* ViewController.swift */; };
 		334A0F0B1F7390420091AAE7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 334A0F091F7390420091AAE7 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3304DCF51F74B5BD002EE397 /* VGRefreshFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VGRefreshFooterView.swift; sourceTree = "<group>"; };
 		334A0F021F7390420091AAE7 /* PullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		334A0F051F7390420091AAE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		334A0F071F7390420091AAE7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				334A0F191F73920F0091AAE7 /* VGPullToRefreshLoadingIndicator.swift */,
 				33FC4AA51F73B5AA0009CC9F /* VGRefreshHeaderView.swift */,
+				3304DCF51F74B5BD002EE397 /* VGRefreshFooterView.swift */,
 				80AE84CC1F7408B20091D935 /* VGPullToRefreshCommon.swift */,
 				80AE84CE1F740B5C0091D935 /* VGPullToRefreshExtensions.swift */,
 			);
@@ -110,6 +113,7 @@
 		334A0EFA1F7390420091AAE7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = VG;
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Vein;
@@ -161,6 +165,7 @@
 				334A0F081F7390420091AAE7 /* ViewController.swift in Sources */,
 				80AE84CD1F7408B20091D935 /* VGPullToRefreshCommon.swift in Sources */,
 				33FC4AA61F73B5AA0009CC9F /* VGRefreshHeaderView.swift in Sources */,
+				3304DCF61F74B5BD002EE397 /* VGRefreshFooterView.swift in Sources */,
 				334A0F061F7390420091AAE7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,14 +1,14 @@
 //
-//  VGRefreshHeaderView.swift
+//  VGRefreshFooterView.swift
 //  PullToRefresh
 //
-//  Created by Vein on 2017/9/21.
+//  Created by Vein on 2017/9/22.
 //  Copyright © 2017年 Vein. All rights reserved.
 //
 
 import UIKit
 
-open class VGRefreshHeaderView: UIView {
+open class VGRefreshFooterView: UIView {
 
     fileprivate(set) var state: VGRefreshViewState = .stopped
     
@@ -33,7 +33,7 @@ open class VGRefreshHeaderView: UIView {
         super.init(frame: .zero)
         
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
