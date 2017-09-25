@@ -11,14 +11,16 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    fileprivate var indicator = VGPullToRefreshLoadingIndicator()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rect = CGRect(x: 100, y: 200, width: 30.0, height: 30.0)
-        indicator = VGPullToRefreshLoadingIndicator(frame: rect)
-        view.addSubview(indicator)
+        tableView.vg_addPullToRefresh {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                self.tableView.vg_stopLoading()
+            })
+        }
+        tableView.vg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,16 +50,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        indicator.stopAnimating()
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = max(-scrollView.contentInset.top - scrollView.contentOffset.y, 0)
-        let pullProgress: CGFloat = offsetY / 95.0
-        indicator.setPullProgress(pullProgress)
-    }
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        indicator.startAnimating()
+        
     }
 }
 

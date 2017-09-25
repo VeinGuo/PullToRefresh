@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uqx-OG-Osq">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="PCp-Bn-BBl">
+            <objects>
+                <navigationController id="uqx-OG-Osq" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IYF-gS-oVS">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="dqo-1g-Syw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LHu-Lz-2Tr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-660" y="118"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -18,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QSp-Sd-fQn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="5R8-ZR-r2n"/>
@@ -28,13 +44,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="DPM-2o-tGl"/>
-                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="JgI-TF-hU1"/>
-                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="STC-KT-FFa"/>
-                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="SrG-om-uPz"/>
+                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Dpb-Nh-wax"/>
+                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="H2M-mq-4FG"/>
+                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kP0-WL-lEl"/>
+                            <constraint firstItem="QSp-Sd-fQn" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="vcg-dW-E5t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="B8X-34-Fk3"/>
                     <connections>
                         <outlet property="tableView" destination="QSp-Sd-fQn" id="1Rd-Iw-Zum"/>
                     </connections>

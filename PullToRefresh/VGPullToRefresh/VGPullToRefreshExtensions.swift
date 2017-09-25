@@ -104,6 +104,10 @@ public extension UIScrollView {
         refreshFooterView.observing = true
     }
     
+    public func vg_stopLoading() {
+        refreshHeaderView?.stopLoading()
+    }
+    
     public func vg_removePullToRefresh() {
         refreshHeaderView?.observing = false
         refreshHeaderView?.removeFromSuperview()
@@ -146,19 +150,10 @@ public extension UIView {
     }
 }
 
+// MARK: UIGestureRecognizerState Extension
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+public extension UIGestureRecognizerState {
+    func vg_isAnyOf(_ values: [UIGestureRecognizerState]) -> Bool {
+        return values.contains(where: { $0 == self })
+    }
+}

@@ -34,9 +34,11 @@ open class VGPullToRefreshLoadingIndicator: UIView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     override open func layoutSubviews() {
-        indicatorLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height);
+        super.layoutSubviews()
+        indicatorLayer.frame = bounds
         updateIndicatorLayerPath()
     }
     
@@ -64,9 +66,6 @@ open class VGPullToRefreshLoadingIndicator: UIView {
         let endAngle: CGFloat = 2 * CGFloat(Double.pi)
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         indicatorLayer.path = path.cgPath
-        
-        indicatorLayer.strokeStart = 0.1
-        indicatorLayer.strokeEnd = 1.0
     }
     
     open func setPullProgress(_ progress: CGFloat) {
@@ -79,7 +78,6 @@ open class VGPullToRefreshLoadingIndicator: UIView {
         } else {
             indicatorLayer.transform = identityTransform
         }
-        
     }
     
     open func startAnimating() {
@@ -94,6 +92,7 @@ open class VGPullToRefreshLoadingIndicator: UIView {
     }
     
     open func stopAnimating() {
+        indicatorLayer.strokeEnd = 0.0
         indicatorLayer.removeAnimation(forKey: kRotationAnimationKey)
     }
 }
