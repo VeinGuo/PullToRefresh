@@ -104,6 +104,10 @@ public extension UIScrollView {
         refreshFooterView.observing = true
     }
     
+    public func vg_headerIndicatorTintColor(tintColor: UIColor) {
+        refreshHeaderView?.loadingIndicator?.tintColor = tintColor
+    }
+    
     public func vg_stopLoading() {
         refreshHeaderView?.stopLoading()
     }

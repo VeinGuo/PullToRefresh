@@ -49,7 +49,7 @@ open class VGPullToRefreshLoadingIndicator: UIView {
     }
     
     fileprivate func setupIndicatorLayer() {
-        indicatorLayer.strokeColor = UIColor.black.cgColor
+        indicatorLayer.strokeColor = tintColor.cgColor
         indicatorLayer.fillColor = UIColor.clear.cgColor
         indicatorLayer.lineWidth = 1.0
         indicatorLayer.lineJoin = kCALineJoinRound;
@@ -66,6 +66,11 @@ open class VGPullToRefreshLoadingIndicator: UIView {
         let endAngle: CGFloat = 2 * CGFloat(Double.pi)
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         indicatorLayer.path = path.cgPath
+    }
+    
+    open override func tintColorDidChange() {
+        super.tintColorDidChange()
+        indicatorLayer.strokeColor = tintColor.cgColor
     }
     
     fileprivate func currentDegree() -> CGFloat {

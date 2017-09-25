@@ -20,7 +20,8 @@ class ViewController: UIViewController {
                 self.tableView.vg_stopLoading()
             })
         }
-        tableView.vg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
+        tableView.vg_setPullToRefreshBackgroundColor(#colorLiteral(red: 0.8308480382, green: 0.8308677077, blue: 0.8308570981, alpha: 1))
+        tableView.vg_headerIndicatorTintColor(tintColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
     }
 
     override func didReceiveMemoryWarning() {

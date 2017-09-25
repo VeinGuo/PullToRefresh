@@ -30,7 +30,7 @@ open class VGRefreshHeaderView: UIView {
         }
     }
     
-    fileprivate var loadingIndicator: VGPullToRefreshLoadingIndicator?
+    open var loadingIndicator: VGPullToRefreshLoadingIndicator?
     
     open var observing: Bool = false {
         didSet {
