@@ -42,13 +42,13 @@ open class VGPullToRefreshLoadingIndicator: UIView {
         updateIndicatorLayerPath()
     }
     
-    internal func commonInit(){
+    fileprivate func commonInit(){
         timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         setupIndicatorLayer()
         
     }
     
-    internal func setupIndicatorLayer() {
+    fileprivate func setupIndicatorLayer() {
         indicatorLayer.strokeColor = UIColor.black.cgColor
         indicatorLayer.fillColor = UIColor.clear.cgColor
         indicatorLayer.lineWidth = 1.0
@@ -59,13 +59,17 @@ open class VGPullToRefreshLoadingIndicator: UIView {
         updateIndicatorLayerPath()
     }
     
-    internal func updateIndicatorLayerPath() {
+    fileprivate func updateIndicatorLayerPath() {
         let center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         let radius = min(self.bounds.width / 2, self.bounds.height / 2) - indicatorLayer.lineWidth / 2
         let startAngle: CGFloat = 0
         let endAngle: CGFloat = 2 * CGFloat(Double.pi)
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         indicatorLayer.path = path.cgPath
+    }
+    
+    fileprivate func currentDegree() -> CGFloat {
+        return indicatorLayer.value(forKeyPath: "transform.rotation.z") as! CGFloat
     }
     
     open func setPullProgress(_ progress: CGFloat) {
@@ -82,10 +86,9 @@ open class VGPullToRefreshLoadingIndicator: UIView {
     
     open func startAnimating() {
         if indicatorLayer.animation(forKey: kRotationAnimationKey) != nil { return }
-        let animation = CABasicAnimation(keyPath: "transform.rotation")
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.duration = 1.0
-        animation.fromValue = 0
-        animation.toValue = (2 * Double.pi)
+        animation.toValue = CGFloat((2 * Double.pi)) + currentDegree()
         animation.repeatCount = Float.infinity
         animation.isRemovedOnCompletion = false
         indicatorLayer.add(animation, forKey: kRotationAnimationKey)
