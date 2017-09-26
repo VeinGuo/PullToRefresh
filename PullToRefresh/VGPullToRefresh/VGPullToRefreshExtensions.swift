@@ -112,7 +112,7 @@ public extension UIScrollView {
         refreshHeaderView?.stopLoading()
     }
     
-    public func vg_stopMore() {
+    public func vg_stopMoreLoding() {
         refreshFooterView?.stopLoading()
     }
     

@@ -96,7 +96,8 @@ open class VGRefreshFooterView: UIView {
     
     fileprivate func actualContentOffsetY() -> CGFloat {
         guard let scrollView = scrollView() else { return 0.0 }
-        return max((scrollView.contentInset.bottom + scrollView.contentOffset.y) - (scrollView.contentSize.height - scrollView.bounds.height), 0)
+//        return max((scrollView.contentInset.bottom + scrollView.contentOffset.y) - (scrollView.contentSize.height - scrollView.bounds.height), 0)
+        return max(scrollView.contentSize.height - scrollView.contentOffset.y + scrollView.contentInset.bottom, 0)
     }
     
     fileprivate func currentHeight() -> CGFloat {
@@ -105,12 +106,13 @@ open class VGRefreshFooterView: UIView {
     }
     
     fileprivate func scrollViewDidChangeContentOffset(dragging: Bool) {
+        guard let scrollView = scrollView() else { return }
         let offsetY = actualContentOffsetY()
         
         if state == .stopped && dragging {
             state = .dragging
-        } else if state == .dragging && dragging == false {
-            if offsetY >= VGPullToRefreshCommon.MinOffsetToPull {
+        } else if state == .dragging {
+            if offsetY <= scrollView.bounds.size.height {
                 state = .animatingBounce
             } else {
                 state = .stopped

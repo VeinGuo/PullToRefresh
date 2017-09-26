@@ -25,7 +25,9 @@ class ViewController: UIViewController {
         
         tableView.vg_addPullToRefresh {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                self.dataSource = [1, 2, 3, 4, 6, 7, 8, 9, 10, 1, 2, 3, 4, 6, 7, 8, 9, 10]
                 self.tableView.vg_stopLoading()
+                self.tableView.reloadData()
             })
         }
         tableView.vg_setPullToRefreshBackgroundColor(#colorLiteral(red: 0.8308480382, green: 0.8308677077, blue: 0.8308570981, alpha: 1))
@@ -36,7 +38,7 @@ class ViewController: UIViewController {
                 for item in 21...40 {
                     self.dataSource.append(item)
                 }
-                self.tableView.vg_stopMore()
+                self.tableView.vg_stopMoreLoding()
                 self.tableView.reloadData()
             }
         }
