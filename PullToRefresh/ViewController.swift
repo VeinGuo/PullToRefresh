@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    var dataSource = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,8 @@ class ViewController: UIViewController {
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
+        tableView.tableFooterView = UIView()
+        dataSource = [1, 2, 3, 4, 6, 7, 8, 9, 10, 1, 2, 3, 4, 6, 7, 8, 9, 10]
         
         tableView.vg_addPullToRefresh {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
@@ -30,9 +32,19 @@ class ViewController: UIViewController {
         tableView.vg_headerIndicatorTintColor(tintColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
         
         tableView.vg_addInfiniteScrolling {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+            self.delay(time: 2) {
+                for item in 21...40 {
+                    self.dataSource.append(item)
+                }
                 self.tableView.vg_stopMore()
-            })
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func delay(time: TimeInterval, completionHandler: @escaping ()-> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+            completionHandler()
         }
     }
 
@@ -49,7 +61,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
