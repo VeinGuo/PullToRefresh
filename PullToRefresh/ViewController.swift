@@ -15,19 +15,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInsetAdjustmentBehavior = .never
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
         
-//        tableView.vg_addPullToRefresh {
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-//                self.tableView.vg_stopLoading()
-//            })
-//        }
-//        tableView.vg_setPullToRefreshBackgroundColor(#colorLiteral(red: 0.8308480382, green: 0.8308677077, blue: 0.8308570981, alpha: 1))
-//        tableView.vg_headerIndicatorTintColor(tintColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
+        tableView.vg_addPullToRefresh {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                self.tableView.vg_stopLoading()
+            })
+        }
+        tableView.vg_setPullToRefreshBackgroundColor(#colorLiteral(red: 0.8308480382, green: 0.8308677077, blue: 0.8308570981, alpha: 1))
+        tableView.vg_headerIndicatorTintColor(tintColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
         
         tableView.vg_addInfiniteScrolling {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-                self.tableView.vg_stopLoading()
+                self.tableView.vg_stopMore()
             })
         }
     }

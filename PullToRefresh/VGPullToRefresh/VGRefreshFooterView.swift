@@ -50,7 +50,7 @@ open class VGRefreshFooterView: UIView {
     }
 
     fileprivate let bounceAnimationHelperView = UIView()
-    fileprivate var originalContentInsetTop: CGFloat = 0.0 { didSet { layoutSubviews() } }
+    fileprivate var originalContentInsetBottom: CGFloat = 0.0 { didSet { layoutSubviews() } }
     var actionHandler: (() -> Void)!
     
     init() {
@@ -107,12 +107,12 @@ open class VGRefreshFooterView: UIView {
     
     fileprivate func actualContentOffsetY() -> CGFloat {
         guard let scrollView = scrollView() else { return 0.0 }
-        return max(scrollView.contentInset.bottom - scrollView.contentOffset.y, 0)
+        return max((scrollView.contentInset.bottom + scrollView.contentOffset.y) - (scrollView.contentSize.height - scrollView.bounds.height), 0)
     }
     
     fileprivate func currentHeight() -> CGFloat {
         guard let scrollView = scrollView() else { return 0.0 }
-        return max(originalContentInsetTop + scrollView.contentOffset.y, 0)
+        return max((originalContentInsetBottom + scrollView.contentOffset.y) - (scrollView.contentSize.height - scrollView.bounds.height), 0)
     }
     
     fileprivate func scrollViewDidChangeContentOffset(dragging: Bool) {
@@ -136,8 +136,7 @@ open class VGRefreshFooterView: UIView {
         guard let scrollView = scrollView() else { return }
         
         var contentInset = scrollView.contentInset
-        contentInset.top = originalContentInsetTop
-        
+        contentInset.bottom = originalContentInsetBottom
         if state == .animatingBounce {
             contentInset.bottom += currentHeight()
         } else if state == .loading {
@@ -177,14 +176,13 @@ open class VGRefreshFooterView: UIView {
         
         bounceAnimationHelperView.center = CGPoint(x: 0.0, y: scrollView.contentSize.height + currentHeight())
         let width = bounds.width
-        print(self.originalContentInsetTop)
         UIView.animate(withDuration: duration, delay: 0.0, options: [], animations: { [weak self] in
-            if let contentInsetTop = self?.originalContentInsetTop {
-                self?.bounceAnimationHelperView.center = CGPoint(x: 0.0, y: scrollView.contentSize.height + contentInsetTop + VGPullToRefreshCommon.LoadingContentInset)
-                if let contentInsetTop = self?.bounceAnimationHelperView.center.y {
-                    scrollView.contentInset.bottom = contentInsetTop
-                    scrollView.contentOffset.y += scrollView.contentInset.bottom
-                    self?.frame = CGRect(x: 0.0, y: scrollView.contentInset.bottom + contentInsetTop - 1.0, width: width, height: contentInsetTop)
+            if let contentInsetBottom = self?.originalContentInsetBottom {
+                self?.bounceAnimationHelperView.center = CGPoint(x: 0.0, y: scrollView.contentSize.height + contentInsetBottom + VGPullToRefreshCommon.LoadingContentInset)
+                if let contentInsetBottom = self?.bounceAnimationHelperView.center.y {
+                    scrollView.contentInset.bottom = contentInsetBottom - scrollView.contentSize.height
+                    scrollView.contentOffset.y = scrollView.contentInset.bottom + (scrollView.contentSize.height - scrollView.bounds.height)
+                    self?.frame = CGRect(x: 0.0, y: scrollView.contentSize.height, width: width, height: contentInsetBottom - scrollView.contentSize.height)
                 }
             }
         }) { [weak self] _ in
@@ -223,8 +221,8 @@ open class VGRefreshFooterView: UIView {
         if keyPath == VGPullToRefreshCommon.KeyPaths.ContentOffset {
             if let newContentOffset = change?[NSKeyValueChangeKey.newKey], let scrollView = scrollView() {
                 let newContentOffsetY = (newContentOffset as AnyObject).cgPointValue.y
-                if state.isAnyOf([.loading, .animatingToStopped]) && newContentOffsetY > scrollView.contentInset.bottom {
-                    scrollView.contentOffset.y += VGPullToRefreshCommon.LoadingContentInset
+                if state.isAnyOf([.loading, .animatingToStopped]) && newContentOffsetY < (scrollView.contentInset.bottom + (scrollView.contentSize.height - scrollView.bounds.height)) {
+                    scrollView.contentOffset.y = scrollView.contentInset.bottom + (scrollView.contentSize.height - scrollView.bounds.height)
                 } else {
                     scrollViewDidChangeContentOffset(dragging: scrollView.isDragging)
                 }
@@ -232,8 +230,8 @@ open class VGRefreshFooterView: UIView {
             }
         } else if keyPath == VGPullToRefreshCommon.KeyPaths.ContentInset {
             if let newContentInset = change?[NSKeyValueChangeKey.newKey] {
-                let newContentInsetTop = (newContentInset as AnyObject).uiEdgeInsetsValue.top
-                originalContentInsetTop = newContentInsetTop
+                let newContentInsetTop = (newContentInset as AnyObject).uiEdgeInsetsValue.bottom
+                originalContentInsetBottom = newContentInsetTop
             }
         } else if keyPath == VGPullToRefreshCommon.KeyPaths.Frame {
             layoutSubviews()

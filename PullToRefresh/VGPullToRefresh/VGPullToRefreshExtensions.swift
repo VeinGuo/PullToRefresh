@@ -112,6 +112,10 @@ public extension UIScrollView {
         refreshHeaderView?.stopLoading()
     }
     
+    public func vg_stopMore() {
+        refreshFooterView?.stopLoading()
+    }
+    
     public func vg_removePullToRefresh() {
         refreshHeaderView?.observing = false
         refreshHeaderView?.removeFromSuperview()
