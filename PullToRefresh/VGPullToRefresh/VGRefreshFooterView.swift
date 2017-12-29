@@ -9,7 +9,7 @@
 import UIKit
 
 open class VGRefreshFooterView: UIView {
-
+    
     fileprivate var _state: VGRefreshViewState = .stopped
     fileprivate(set) var state: VGRefreshViewState {
         get { return _state }
@@ -23,9 +23,9 @@ open class VGRefreshFooterView: UIView {
             } else if newValue == .loading && actionHandler != nil {
                 actionHandler()
             } else if newValue == .animatingToStopped {
-                resetScrollViewContentInset(shouldAddObserverWhenFinished: true, animated: true, completion: { [weak self] () -> () in
+                resetScrollViewContentInset(shouldAddObserverWhenFinished: true, animated: true, completion: { [weak self] () -> Void in
                     self?.state = .stopped
-                    self?.scrollView()?.contentInset.bottom = (self?.originalContentInsetBottom)!
+                    self?.scrollView()?.contentInset.bottom = 0
                 })
             } else if newValue == .stopped {
                 loadingIndicator?.stopAnimating()
@@ -43,7 +43,7 @@ open class VGRefreshFooterView: UIView {
             }
         }
     }
-
+    
     fileprivate let bounceAnimationHelperView = UIView()
     fileprivate var originalContentInsetBottom: CGFloat = 0.0 { didSet { layoutSubviews() } }
     var actionHandler: (() -> Void)!
@@ -53,16 +53,16 @@ open class VGRefreshFooterView: UIView {
         loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         addSubview(loadingIndicator!)
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: Layout
     fileprivate func layoutLoadingView() {
         let width = bounds.width
         
-        if let _ = scrollView() {
+        if scrollView() != nil {
             let loadingViewSize: CGFloat = VGPullToRefreshCommon.LoadingViewSize
             loadingIndicator?.frame = CGRect(x: (width - loadingViewSize) / 2.0, y: 0, width: loadingViewSize, height: loadingViewSize)
             loadingIndicator?.center.y = VGPullToRefreshCommon.LoadingContentInset / 2
@@ -74,7 +74,7 @@ open class VGRefreshFooterView: UIView {
         
         if let scrollView = scrollView(), state != .animatingBounce {
             let width = scrollView.bounds.width
-            let height = currentHeight()
+            let height = scrollView.contentSize.height > 0 ? currentHeight() : 0
             frame = CGRect(x: 0.0, y: scrollView.contentSize.height, width: width, height: height)
             layoutLoadingView()
         }
@@ -96,7 +96,7 @@ open class VGRefreshFooterView: UIView {
     
     fileprivate func actualContentOffsetY() -> CGFloat {
         guard let scrollView = scrollView() else { return 0.0 }
-//        return max((scrollView.contentInset.bottom + scrollView.contentOffset.y) - (scrollView.contentSize.height - scrollView.bounds.height), 0)
+        //        return max((scrollView.contentInset.bottom + scrollView.contentOffset.y) - (scrollView.contentSize.height - scrollView.bounds.height), 0)
         return max(scrollView.contentSize.height - scrollView.contentOffset.y + scrollView.contentInset.bottom, 0)
     }
     
@@ -118,12 +118,11 @@ open class VGRefreshFooterView: UIView {
                 state = .stopped
             }
         } else if state.isAnyOf([.dragging, .stopped]) {
-//            let pullProgess: CGFloat = offsetY / VGPullToRefreshCommon.MinOffsetToPull
-//            loadingIndicator?.setPullProgress(pullProgess)
+            
         }
     }
     
-    fileprivate func resetScrollViewContentInset(shouldAddObserverWhenFinished: Bool, animated: Bool, completion: (() -> ())?) {
+    fileprivate func resetScrollViewContentInset(shouldAddObserverWhenFinished: Bool, animated: Bool, completion: (() -> Void)?) {
         guard let scrollView = scrollView() else { return }
         
         var contentInset = scrollView.contentInset
@@ -214,7 +213,7 @@ open class VGRefreshFooterView: UIView {
                 let newContentOffsetY = (newContentOffset as AnyObject).cgPointValue.y
                 if newContentOffsetY <= 0 { return }
                 if state.isAnyOf([.loading, .animatingToStopped]) && newContentOffsetY < (scrollView.contentInset.bottom + (scrollView.contentSize.height - scrollView.bounds.height)) {
-//                    scrollView.contentOffset.y = scrollView.contentInset.bottom + (scrollView.contentSize.height - scrollView.bounds.height)
+                    
                 } else {
                     scrollViewDidChangeContentOffset(dragging: scrollView.isDragging)
                 }
@@ -234,3 +233,4 @@ open class VGRefreshFooterView: UIView {
         }
     }
 }
+
