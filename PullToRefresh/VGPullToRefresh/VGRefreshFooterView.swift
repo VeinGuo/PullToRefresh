@@ -74,7 +74,9 @@ open class VGRefreshFooterView: UIView {
     open override func layoutSubviews() {
         super.layoutSubviews()
         
-        if let scrollView = scrollView(), state != .animatingBounce {
+        if let scrollView = scrollView(),
+            state != .animatingBounce,
+            state != .stopped {
             let width = scrollView.bounds.width
             let height = scrollView.contentSize.height > 0 ? currentHeight() : 0
             frame = CGRect(x: 0.0, y: scrollView.contentSize.height, width: width, height: height)
@@ -235,3 +237,4 @@ open class VGRefreshFooterView: UIView {
         }
     }
 }
+
