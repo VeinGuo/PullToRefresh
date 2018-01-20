@@ -21,24 +21,24 @@ class ViewController: UIViewController {
             automaticallyAdjustsScrollViewInsets = false
         }
         tableView.tableFooterView = UIView()
-        dataSource = [1, 2, 3, 4, 6, 7, 8, 9, 10, 1, 2, 3, 4, 6, 7, 8, 9, 10]
+        dataSource = [1, 2, 3, 4, 6, 7]
         
-        tableView.vg_addPullToRefresh {
+        tableView.vg.addPullToRefresh {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
                 self.dataSource = [1, 2, 3, 4, 6, 7, 8, 9, 10, 1, 2, 3, 4, 6, 7, 8, 9, 10]
-                self.tableView.vg_stopLoading()
+                self.tableView.vg.stopLoading()
                 self.tableView.reloadData()
             })
         }
-        tableView.vg_setPullToRefreshBackgroundColor(#colorLiteral(red: 0.8308480382, green: 0.8308677077, blue: 0.8308570981, alpha: 1))
-        tableView.vg_headerIndicatorTintColor(tintColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
+        tableView.vg.setPullToRefreshBackgroundColor(#colorLiteral(red: 0.8308480382, green: 0.8308677077, blue: 0.8308570981, alpha: 1))
+        tableView.vg.headerIndicatorTintColor(tintColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
         
-        tableView.vg_addInfiniteScrolling {
+        tableView.vg.addInfiniteScrolling {
             self.delay(time: 2) {
                 for item in 21...40 {
                     self.dataSource.append(item)
                 }
-                self.tableView.vg_stopMoreLoding()
+                self.tableView.vg.stopMoreLoding()
                 self.tableView.reloadData()
             }
         }

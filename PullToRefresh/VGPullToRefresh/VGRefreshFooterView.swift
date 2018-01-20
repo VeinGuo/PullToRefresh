@@ -25,7 +25,9 @@ open class VGRefreshFooterView: UIView {
             } else if newValue == .animatingToStopped {
                 resetScrollViewContentInset(shouldAddObserverWhenFinished: true, animated: true, completion: { [weak self] () -> Void in
                     self?.state = .stopped
-                    self?.scrollView()?.contentInset.bottom = 0
+                    UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: { [weak self] in
+                        self?.scrollView()?.contentInset.bottom = 0
+                    })
                 })
             } else if newValue == .stopped {
                 loadingIndicator?.stopAnimating()
@@ -112,7 +114,7 @@ open class VGRefreshFooterView: UIView {
         if state == .stopped && dragging {
             state = .dragging
         } else if state == .dragging {
-            if offsetY <= scrollView.bounds.size.height {
+            if offsetY <= scrollView.bounds.size.height - VGPullToRefreshCommon.LoadingContentInset {
                 state = .animatingBounce
             } else {
                 state = .stopped
@@ -233,4 +235,3 @@ open class VGRefreshFooterView: UIView {
         }
     }
 }
-
